@@ -1,0 +1,11 @@
+﻿{
+  "Group": "Hello providers",
+  "FriendlyName": "Hello World",
+  "SystemName": "Hello.World",
+  "Version": "0.43",
+  "SupportedVersions": [ "4.50" ],
+  "Author": "Leo team",
+  "DisplayOrder": 1,
+  "FileName": "Nop.Plugin.Widget.HelloWorld.dll",
+  "Description": "This plugin is testing "
+}
