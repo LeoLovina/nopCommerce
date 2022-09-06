@@ -130,6 +130,10 @@ namespace Nop.Web.Areas.Admin.Models.Catalog
 
         public string PrimaryStoreCurrencyCode { get; set; }
 
+        // The NopResourceDisplayName provides the "key" used during localization
+        // Keep an eye out for more about localization in future blogs
+        [NopResourceDisplayName("Admin.Catalog.Categories.Fields.SomeNewProperty")]
+        public string SomeNewProperty { get; set; }
         #endregion
     }
 

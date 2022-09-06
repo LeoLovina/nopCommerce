@@ -34,6 +34,9 @@ namespace Nop.Web.Areas.Admin.Validators.Catalog
                 .WithMessage(x => string.Format(localizationService.GetResourceAsync("Admin.Catalog.Categories.Fields.PriceTo.GreaterThanZeroOrPriceFrom").Result, x.PriceFrom > decimal.Zero ? x.PriceFrom : decimal.Zero))
                 .When(x => x.PriceRangeFiltering && x.ManuallyPriceRange);
 
+            //I think this code can speak for itself
+            RuleFor(m => m.SomeNewProperty).Length(0, 255);
+
             SetDatabaseValidationRules<Category>(mappingEntityAccessor);
         }
     }
