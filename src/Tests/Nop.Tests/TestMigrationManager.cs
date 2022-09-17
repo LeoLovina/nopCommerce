@@ -34,7 +34,8 @@ namespace Nop.Tests
         public void ApplyUpMigrations(Assembly assembly,
             MigrationProcessType migrationProcessType = MigrationProcessType.Installation)
         {
-            _migrationRunner.MigrateUp(637200411689037680);
+            _migrationRunner.MigrateUp(637766352002551775);
+            //_migrationRunner.MigrateUp(637766352002551775);
         }
 
         /// <summary>
@@ -43,8 +44,13 @@ namespace Nop.Tests
         /// <param name="assembly">Assembly to find the migration</param>
         public void ApplyDownMigrations(Assembly assembly)
         {
+            _migrationRunner.MigrateDown(20220912000);
         }
 
+        public void ApplyDownMigrations(Assembly assembly, long version)
+        {
+            _migrationRunner.MigrateDown(version);
+        }
         #endregion
     }
 }

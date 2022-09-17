@@ -146,6 +146,19 @@ namespace Nop.Data.Migrations
             }
         }
 
+        public void ApplyDownMigrations(Assembly assembly, long verson)
+        {
+            if (assembly is null)
+                throw new ArgumentNullException(nameof(assembly));
+
+            var migrationInfo = GetDownMigrations(assembly).Where(x => x.Version == verson).FirstOrDefault();
+            if (migrationInfo != null)
+            {
+                _migrationRunner.Down(migrationInfo.Migration);
+                _versionLoader.Value.DeleteVersion(migrationInfo.Version);
+            }
+        }
+
         #endregion
     }
 }

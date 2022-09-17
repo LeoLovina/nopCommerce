@@ -71,6 +71,7 @@ namespace Nop.Web.Framework.Infrastructure.Extensions
                 migrationManager.ApplyUpMigrations(assembly, MigrationProcessType.Update);
                 assembly = Assembly.GetAssembly(typeof(IMigrationManager));
                 migrationManager.ApplyUpMigrations(assembly, MigrationProcessType.Update);
+                //migrationManager.ApplyDownMigrations(assembly, 637989264002551775);
 
                 var taskScheduler = engine.Resolve<ITaskScheduler>();
                 taskScheduler.InitializeAsync().Wait();

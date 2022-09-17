@@ -19,5 +19,7 @@ namespace Nop.Data.Migrations
         /// </summary>
         /// <param name="assembly">Assembly to find the migration</param>
         void ApplyDownMigrations(Assembly assembly);
+
+        void ApplyDownMigrations(Assembly assembly, long version);
     }
 }
