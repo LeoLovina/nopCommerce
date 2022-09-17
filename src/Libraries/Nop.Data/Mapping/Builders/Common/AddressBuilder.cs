@@ -21,7 +21,8 @@ namespace Nop.Data.Mapping.Builders.Common
         {
             table
                 .WithColumn(nameof(Address.CountryId)).AsInt32().Nullable().ForeignKey<Country>(onDelete: Rule.None)
-                .WithColumn(nameof(Address.StateProvinceId)).AsInt32().Nullable().ForeignKey<StateProvince>(onDelete: Rule.None);
+                .WithColumn(nameof(Address.StateProvinceId)).AsInt32().Nullable().ForeignKey<StateProvince>(onDelete: Rule.None)
+                .WithColumn(nameof(Address.CityId)).AsInt32().Nullable().ForeignKey<City>(onDelete: Rule.None);
         }
 
         #endregion

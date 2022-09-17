@@ -38,6 +38,11 @@ namespace Nop.Core.Domain.Common
         public int? StateProvinceId { get; set; }
 
         /// <summary>
+        /// Gets or sets the city identifier
+        /// </summary>
+        public int? CityId { get; set; }
+
+        /// <summary>
         /// Gets or sets the county
         /// </summary>
         public string County { get; set; }
