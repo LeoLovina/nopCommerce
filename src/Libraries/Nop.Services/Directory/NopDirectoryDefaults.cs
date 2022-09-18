@@ -83,6 +83,37 @@ namespace Nop.Services.Directory
 
         #endregion
 
+        #region City
+
+        /// <summary>
+        /// Gets a key for caching
+        /// </summary>
+        /// <remarks>
+        /// {0} : StateProvince ID
+        /// {1} : language ID
+        /// {2} : show hidden records?
+        /// </remarks>
+        public static CacheKey CitiesByCountryCacheKey => new("Nop.city.bycountry.{0}-{1}-{2}", NopEntityCacheDefaults<City>.Prefix);
+
+        /// <summary>
+        /// Gets a key for caching
+        /// </summary>
+        /// <remarks>
+        /// {0} : show hidden records?
+        /// </remarks>
+        public static CacheKey CitiesAllCacheKey => new("Nop.city.all.{0}", NopEntityCacheDefaults<City>.Prefix);
+
+        /// <summary>
+        /// Gets a key for caching
+        /// </summary>
+        /// <remarks>
+        /// {0} : abbreviation
+        /// {1} : City ID
+        /// </remarks>
+        public static CacheKey CitiesByAbbreviationCacheKey => new("Nop.city.byabbreviation.{0}-{1}", NopEntityCacheDefaults<City>.Prefix);
+
+        #endregion
+
         #endregion
     }
 }
