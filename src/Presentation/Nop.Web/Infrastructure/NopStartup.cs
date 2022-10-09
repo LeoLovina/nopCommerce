@@ -42,6 +42,7 @@ namespace Nop.Web.Infrastructure
             services.AddScoped<ICheckoutAttributeModelFactory, CheckoutAttributeModelFactory>();
             services.AddScoped<ICommonModelFactory, CommonModelFactory>();
             services.AddScoped<ICountryModelFactory, CountryModelFactory>();
+            services.AddScoped<IStateProvinceModelFactory, StateProvinceModelFactory>();
             services.AddScoped<ICurrencyModelFactory, CurrencyModelFactory>();
             services.AddScoped<ICustomerAttributeModelFactory, CustomerAttributeModelFactory>();
             services.AddScoped<ICustomerModelFactory, CustomerModelFactory>();

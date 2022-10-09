@@ -37,6 +37,17 @@ namespace Nop.Services.ExportImport
         Task<int> ImportStatesFromTxtAsync(Stream stream, bool writeLog = true);
 
         /// <summary>
+        /// Import cities from TXT file
+        /// </summary>
+        /// <param name="stream">Stream</param>
+        /// <param name="writeLog">Indicates whether to add logging</param>
+        /// <returns>
+        /// A task that represents the asynchronous operation
+        /// The task result contains the number of imported states
+        /// </returns>
+        Task<int> ImportCitiesFromTxtAsync(Stream stream, bool writeLog = true);
+
+        /// <summary>
         /// Import manufacturers from XLSX file
         /// </summary>
         /// <param name="stream">Stream</param>

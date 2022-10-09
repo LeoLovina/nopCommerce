@@ -63,6 +63,7 @@ namespace Nop.Services.ExportImport
         private readonly IShippingService _shippingService;
         private readonly ISpecificationAttributeService _specificationAttributeService;
         private readonly IStateProvinceService _stateProvinceService;
+        private readonly ICityService _cityService;
         private readonly IStoreContext _storeContext;
         private readonly IStoreMappingService _storeMappingService;
         private readonly IStoreService _storeService;
@@ -99,6 +100,7 @@ namespace Nop.Services.ExportImport
             IShippingService shippingService,
             ISpecificationAttributeService specificationAttributeService,
             IStateProvinceService stateProvinceService,
+            ICityService cityService,
             IStoreContext storeContext,
             IStoreMappingService storeMappingService,
             IStoreService storeService,
@@ -131,6 +133,7 @@ namespace Nop.Services.ExportImport
             _shippingService = shippingService;
             _specificationAttributeService = specificationAttributeService;
             _stateProvinceService = stateProvinceService;
+            _cityService = cityService;
             _storeContext = storeContext;
             _storeMappingService = storeMappingService;
             _storeService = storeService;
@@ -1938,6 +1941,81 @@ namespace Nop.Services.ExportImport
                         await _stateProvinceService.InsertStateProvinceAsync(state);
                     }
 
+                    count++;
+                }
+            }
+
+            //activity log
+            if (writeLog)
+            {
+                await _customerActivityService.InsertActivityAsync("ImportStates",
+                    string.Format(await _localizationService.GetResourceAsync("ActivityLog.ImportStates"), count));
+            }
+
+            return count;
+        }
+
+        /// <summary>
+        /// Import cities from TXT file
+        /// </summary>
+        /// <param name="stream">Stream</param>
+        /// <param name="writeLog">Indicates whether to add logging</param>
+        /// <returns>
+        /// A task that represents the asynchronous operation
+        /// The task result contains the number of imported states
+        /// </returns>
+        public virtual async Task<int> ImportCitiesFromTxtAsync(Stream stream, bool writeLog = true)
+        {
+            var count = 0;
+            using (var reader = new StreamReader(stream))
+            {
+                while (!reader.EndOfStream)
+                {
+                    var line = await reader.ReadLineAsync();
+                    if (string.IsNullOrWhiteSpace(line))
+                        continue;
+                    var tmp = line.Split(',');
+
+                    if (tmp.Length != 5)
+                        throw new NopException("Wrong file format");
+
+                    //parse
+                    var stateName = tmp[0].Trim();
+                    var cityName = tmp[1].Trim();
+                    var abbreviation = tmp[2].Trim();
+                    var published = bool.Parse(tmp[3].Trim());
+                    var displayOrder = int.Parse(tmp[4].Trim());
+
+                    var state = await _stateProvinceService.GetStateProvinceByAbbreviationAsync(stateName);
+                    if (state == null)
+                    {
+                        //state cannot be loaded. skip
+                        continue;
+                    }
+
+                    //import
+                    var cities = await _cityService.GetCitiesByStateProvinceIdAsync(state.Id, showHidden: true);
+                    var city = cities.FirstOrDefault(x => x.Name.Equals(cityName, StringComparison.InvariantCultureIgnoreCase));
+
+                    if (city != null)
+                    {
+                        city.Abbreviation = abbreviation;
+                        city.Published = published;
+                        city.DisplayOrder = displayOrder;
+                        await _cityService.UpdateCityAsync(city);
+                    }
+                    else
+                    {
+                        city = new City
+                        {
+                            StateProvinceId = state.Id,
+                            Name = cityName,
+                            Abbreviation = abbreviation,
+                            Published = published,
+                            DisplayOrder = displayOrder
+                        };
+                        await _cityService.InsertCityAsync(city);
+                    }
                     count++;
                 }
             }

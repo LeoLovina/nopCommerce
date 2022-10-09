@@ -118,6 +118,16 @@ namespace Nop.Services.ExportImport
         Task<string> ExportStatesToTxtAsync(IList<StateProvince> states);
 
         /// <summary>
+        /// Export cities to TXT
+        /// </summary>
+        /// <param name="cities">Cities</param>
+        /// <returns>
+        /// A task that represents the asynchronous operation
+        /// The task result contains the result in TXT (string) format
+        /// </returns>
+        Task<string> ExportCitiesToTxtAsync(IList<City> cities);
+
+        /// <summary>
         /// Export customer info (GDPR request) to XLSX 
         /// </summary>
         /// <param name="customer">Customer</param>
