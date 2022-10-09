@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Nop.Core;
 using Nop.Data;
+using Nop.Services.Security;
 
 namespace Nop.Services.Installation
 {
@@ -14,14 +16,16 @@ namespace Nop.Services.Installation
         #region Fields
 
         private readonly RequestDelegate _next;
+        private readonly IPermissionService _permissionService;
 
         #endregion
 
         #region Ctor
 
-        public InstallUrlMiddleware(RequestDelegate next)
+        public InstallUrlMiddleware(RequestDelegate next, IPermissionService permissionService)
         {
             _next = next;
+            _permissionService = permissionService;
         }
 
         #endregion
@@ -47,6 +51,14 @@ namespace Nop.Services.Installation
                     return;
                 }
             }
+
+            // Add new permission
+            //var permissionProviders = new List<Type> { typeof(StandardPermissionProvider) };
+            //foreach (var providerType in permissionProviders)
+            //{
+            //    var provider = (IPermissionProvider)Activator.CreateInstance(providerType);
+            //    await _permissionService.InstallPermissionsAsync(provider);
+            //}
 
             //or call the next middleware in the request pipeline
             await _next(context);

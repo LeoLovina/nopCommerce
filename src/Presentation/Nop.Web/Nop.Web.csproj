@@ -45,6 +45,8 @@
 
     <!-- We copy the \Logs directory -->
     <Content Include="Logs\**" CopyToPublishDirectory="PreserveNewest" />
+    <Compile Remove="Areas\Admin\Factories\CountryModelFactory - Copy.cs" />
+    <Compile Remove="Areas\Admin\Helpers\PermissionHelper.cs" />
 
     <None Update="Areas\Admin\sitemap.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
