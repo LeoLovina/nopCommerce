@@ -18225,6 +18225,9 @@
   <LocaleResource Name="Permission.ManageCountries">
     <Value>Admin area. Manage Countries</Value>
   </LocaleResource>
+  <LocaleResource Name="Permission.ManageStateProvinces">
+    <Value>Admin area. Manage StateProvinces</Value>
+  </LocaleResource>
   <LocaleResource Name="Permission.ManageCurrencies">
     <Value>Admin area. Manage Currencies</Value>
   </LocaleResource>

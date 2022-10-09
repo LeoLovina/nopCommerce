@@ -14,6 +14,7 @@ namespace Nop.Web.Areas.Admin.Models.Directory
         public StateProvinceModel()
         {
             Locales = new List<StateProvinceLocalizedModel>();
+            CitySearchModel = new CitySearchModel();
         }
 
         #endregion
@@ -34,7 +35,11 @@ namespace Nop.Web.Areas.Admin.Models.Directory
         [NopResourceDisplayName("Admin.Configuration.Countries.States.Fields.DisplayOrder")]
         public int DisplayOrder { get; set; }
 
+        [NopResourceDisplayName("Admin.Configuration.Countries.States.Fields.NumberOfCities")]
+        public int NumberOfCities { get; set; }
         public IList<StateProvinceLocalizedModel> Locales { get; set; }
+
+        public CitySearchModel CitySearchModel { get; set; }
 
         #endregion
     }

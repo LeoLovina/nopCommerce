@@ -80,6 +80,7 @@ namespace Nop.Services.ExportImport
         private readonly IShipmentService _shipmentService;
         private readonly ISpecificationAttributeService _specificationAttributeService;
         private readonly IStateProvinceService _stateProvinceService;
+        private readonly ICityService _cityService;
         private readonly IStoreMappingService _storeMappingService;
         private readonly IStoreService _storeService;
         private readonly ITaxCategoryService _taxCategoryService;
@@ -124,6 +125,7 @@ namespace Nop.Services.ExportImport
             IShipmentService shipmentService,
             ISpecificationAttributeService specificationAttributeService,
             IStateProvinceService stateProvinceService,
+            ICityService cityService,
             IStoreMappingService storeMappingService,
             IStoreService storeService,
             ITaxCategoryService taxCategoryService,
@@ -141,6 +143,7 @@ namespace Nop.Services.ExportImport
             _forumSettings = forumSettings;
             _categoryService = categoryService;
             _countryService = countryService;
+            _cityService = cityService;
             _currencyService = currencyService;
             _customerAttributeFormatter = customerAttributeFormatter;
             _customerService = customerService;
@@ -1951,6 +1954,38 @@ namespace Nop.Services.ExportImport
                 sb.Append(state.Published);
                 sb.Append(separator);
                 sb.Append(state.DisplayOrder);
+                sb.Append(Environment.NewLine); //new line
+            }
+
+            return sb.ToString();
+        }
+
+        /// <summary>
+        /// Export cities to TXT
+        /// </summary>
+        /// <param name="cities">Cities</param>
+        /// <returns>
+        /// A task that represents the asynchronous operation
+        /// The task result contains the result in TXT (string) format
+        /// </returns>
+        public virtual async Task<string> ExportCitiesToTxtAsync(IList<City> cities)
+        {
+            if (cities == null)
+                throw new ArgumentNullException(nameof(cities));
+
+            const char separator = ',';
+            var sb = new StringBuilder();
+            foreach (var city in cities)
+            {
+                sb.Append((await _stateProvinceService.GetStateProvinceByIdAsync(city.StateProvinceId)).Abbreviation);
+                sb.Append(separator);
+                sb.Append(city.Name);
+                sb.Append(separator);
+                sb.Append(city.Abbreviation);
+                sb.Append(separator);
+                sb.Append(city.Published);
+                sb.Append(separator);
+                sb.Append(city.DisplayOrder);
                 sb.Append(Environment.NewLine); //new line
             }
 

@@ -918,8 +918,13 @@ namespace Nop.Web.Areas.Admin.Infrastructure.Mapper
                 .ForMember(model => model.IsPrimaryWeight, options => options.Ignore());
             CreateMap<MeasureWeightModel, MeasureWeight>();
 
-            CreateMap<StateProvince, StateProvinceModel>();
+            CreateMap<StateProvince, StateProvinceModel>()
+                .ForMember(model => model.NumberOfCities, options => options.Ignore())
+                .ForMember(model => model.CitySearchModel, options => options.Ignore());
             CreateMap<StateProvinceModel, StateProvince>();
+
+            CreateMap<City, CityModel>();
+            CreateMap<CityModel, City>();
         }
 
         /// <summary>

@@ -28,6 +28,16 @@ namespace Nop.Services.Directory
         Task<StateProvince> GetStateProvinceByIdAsync(int stateProvinceId);
 
         /// <summary>
+        /// Get state/provinces by identifiers
+        /// </summary>
+        /// <param name="stateProvinceId">stateProvince identifiers</param>
+        /// <returns>
+        /// A task that represents the asynchronous operation
+        /// The task result contains the stateProvinces
+        /// </returns>
+        Task<IList<StateProvince>> GetStateProvincesByIdsAsync(int[] stateProvinceId);
+
+        /// <summary>
         /// Gets a state/province by abbreviation
         /// </summary>
         /// <param name="abbreviation">The state/province abbreviation</param>
